@@ -1,0 +1,84 @@
+.role-badge {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+.role-admin {
+    background-color: #e7f1ff;
+    color: #007bff;
+}
+.role-technician {
+    background-color: #fff0e5;
+    color: #ff9500;
+}
+.role-customer {
+    background-color: #e6f7e9;
+    color: #34c759;
+}
+.status-active {
+    color: #34c759;
+}
+.status-inactive {
+    color: #ff3b30;
+}
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.action-btn {
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+}
+.action-btn:hover {
+    color: #007bff;
+}
+
+/* DataTables custom styling */
+.dataTables_wrapper .dataTables_filter input {
+    border-radius: 20px;
+    padding: 6px 12px 6px 30px;
+    border: 1px solid #dee2e6;
+    margin-left: 0;
+}
+.dataTables_wrapper .dataTables_filter {
+    position: relative;
+    float: right;
+}
+.dataTables_wrapper .dataTables_filter:before {
+    content: "\F52A";
+    font-family: "bootstrap-icons";
+    position: absolute;
+    left: 10px;
+    top: 7px;
+    color: #6c757d;
+}
+.dataTables_wrapper .dataTables_length select {
+    border-radius: 20px;
+    padding: 6px 30px 6px 12px;
+    border: 1px solid #dee2e6;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    line-height: 32px;
+    text-align: center;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: linear-gradient(to right, #0062E6, #33AEFF);
+    border: none;
+    color: white !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: linear-gradient(to right, #0062E6, #33AEFF);
+    color: white !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #f0f0f0;
+    border: 1px solid #f0f0f0;
+}

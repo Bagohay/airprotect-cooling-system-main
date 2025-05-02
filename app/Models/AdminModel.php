@@ -29,15 +29,7 @@ class AdminModel extends BaseModel{
     protected $timestamps = true;
     protected $useSoftDeletes = true;
 
-    //usermanagement
-    public function getAllUsers() {
-        return $this->select('user_account.*, user_role.ur_name AS role_name')
-                    ->join('user_role', 'user_account.ua_role_id', 'user_role.ur_id')
-                    ->get();
-    }
 
-
-    
 
 }
 

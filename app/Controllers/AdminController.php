@@ -28,12 +28,8 @@ class AdminController extends BaseController {
         $this->render('admin/inventory');
     }
     public function renderUserManagement(){
-        $users = $this->adminModel->getAllUsers();
-    
-        // Pass the data to the view
-        $this->render('admin/user-management', [
-            'users' => $users
-        ]);
+        
+        $this->render('admin/user-management');
     }
 
     public function renderAdminProfile(){

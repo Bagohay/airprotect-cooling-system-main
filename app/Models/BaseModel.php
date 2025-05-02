@@ -37,10 +37,6 @@ class BaseModel
     {
         $this->db = Database::getInstance()->getConnection();
     }
-
-    // -----------------------------------------
-    // Basic CRUD Operations
-    // -----------------------------------------
     
     /**
      * Get all records

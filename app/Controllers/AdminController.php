@@ -3,43 +3,104 @@
 namespace App\Controllers;
 use App\Controllers\BaseController;
 
-
 class AdminController extends BaseController {
 
     protected $adminModel;
 
     public function __construct()
     {
+        parent::__construct();
         $this->adminModel = $this->loadModel('AdminModel');
     }
-    public function renderAdminDashboard() {
-        $this->render('admin/dashboard');
+    
+    /**
+     * Render the admin dashboard
+     */
+    public function renderAdminDashboard()
+    {
+        // Check admin permissions
+        if (!$this->checkPermission('admin')) {
+            return $this->redirect('/auth/login');
+        }
+        
+        // Fetch dashboard data if needed
+        $dashboardData = [
+            'title' => 'Dashboard - AirProtect Admin',
+            'user' => [
+                'name' => $_SESSION['user_name'] ?? 'Admin',
+                'role' => $_SESSION['user_role'] ?? 'admin'
+            ]
+        ];
+        
+        $this->render('admin/dashboard', $dashboardData);
     }
-
-    public function renderServiceRequest() {
+    
+    /**
+     * Render the service requests page
+     */
+    public function renderServiceRequest()
+    {
+        // Check admin permissions
+        if (!$this->checkPermission('admin')) {
+            return $this->redirect('/auth/login');
+        }
+        
         $this->render('admin/service-request');
     }
-
-    public function renderTechnician() {
+    
+    /**
+     * Render the technicians page
+     */
+    public function renderTechnician()
+    {
+        // Check admin permissions
+        if (!$this->checkPermission('admin')) {
+            return $this->redirect('/auth/login');
+        }
+        
         $this->render('admin/technician');
     }
-
-    public function renderInventory(){
+    
+    /**
+     * Render the inventory management page
+     */
+    public function renderInventory()
+    {
+        // Check admin permissions
+        if (!$this->checkPermission('admin')) {
+            return $this->redirect('/auth/login');
+        }
+        
+        // We don't need to pass any specific data here as
+        // the InventoryController handles all data loading via AJAX
         $this->render('admin/inventory');
     }
-    public function renderUserManagement(){
+    
+    /**
+     * Render the user management page
+     */
+    public function renderUserManagement()
+    {
+        // Check admin permissions
+        if (!$this->checkPermission('admin')) {
+            return $this->redirect('/auth/login');
+        }
         
         $this->render('admin/user-management');
     }
-
-    public function renderAdminProfile(){
+    
+    /**
+     * Render the admin profile page
+     */
+    public function renderAdminProfile()
+    {
+        // Check admin permissions
+        if (!$this->checkPermission('admin')) {
+            return $this->redirect('/auth/login');
+        }
+        
         $this->render('admin/profile');
     }
-
-
-
-
-
 }
 
 ?>

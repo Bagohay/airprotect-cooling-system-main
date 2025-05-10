@@ -12,9 +12,8 @@ class UserManagementController extends BaseController
         $this->userModel = $this->loadModel('UserModel');
     }
     
-    /**
-     * Display the user management page
-     */
+
+    //Display the user management page
     public function index()
     {
         // Check if user has admin permissions
@@ -50,6 +49,7 @@ class UserManagementController extends BaseController
                     'status' => $user['ua_is_active'] ? 'active' : 'inactive',
                     'registered' => date('M d, Y', strtotime($user['ua_created_at'])),
                     'last_login' => $user['ua_last_login'] 
+                    //A sample data
                         ? date('M d, Y H:i', strtotime($user['ua_last_login'])) 
                         : 'Never',
                     'logins' => rand(1, 100), // Sample data
@@ -121,9 +121,9 @@ class UserManagementController extends BaseController
         }
     }
     
-    /**
-     * API Endpoint: Create a new user
-     */
+
+    // API Endpoint: Create a new user
+
     public function createUser()
     {
         // Check if request is AJAX and POST
@@ -171,9 +171,7 @@ class UserManagementController extends BaseController
         }
     }
     
-    /**
-     * API Endpoint: Update a user
-     */
+
     public function updateUser($id)
     {
         // Check if request is AJAX

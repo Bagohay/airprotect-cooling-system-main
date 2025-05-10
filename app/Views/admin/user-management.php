@@ -425,7 +425,7 @@ include __DIR__ . '/../includes/admin/base.php';
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 
 <!-- DataTablesManager -->
-<script src="/assets/js/utility/DataTablesManager.js"></script>
+<script src="/assets/js/utility/DataTableManager.js"></script>
 <script src="/assets/js/utility/user-management.js"></script>
 <script>  	
 let table = new DataTable('#myTable');

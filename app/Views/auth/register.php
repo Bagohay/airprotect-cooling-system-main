@@ -16,7 +16,7 @@
         <nav class="navbar navbar-expand navbar-light bg-white px-3">
             <div class="container-fluid">
                 <img src="/assets/images/logo/Air-TechLogo.png" alt="Logo" class="rounded-circle me-2" width="40" height="40">
-                <a class="navbar-brand" href="/">AIR<span class="brand-red">PROTECH</span></a>
+                <span class="brand-text">TECH<span class="text-danger">NOLOGY</span></span>
                 <div class="navbar-nav ms-auto">
                     <a class="nav-link" href="/">Home</a>
                     <a class="nav-link" href="#">About</a>

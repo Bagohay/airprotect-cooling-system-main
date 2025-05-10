@@ -9,16 +9,20 @@ html {
 
 body {
     font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
 }
 
 /* Top Bar */
 .top-bar {
     background-color: var(--primary-color);
     font-size: 0.9rem;
+    padding: 0.5rem 0;
 }
 
 .top-bar a {
     transition: opacity 0.3s ease;
+    display: inline-block;
+    margin-right: 10px;
 }
 
 .top-bar a:hover {
@@ -27,6 +31,8 @@ body {
 
 .social-links a {
     transition: transform 0.3s ease;
+    display: inline-block;
+    margin-left: 10px;
 }
 
 .social-links a:hover {
@@ -36,6 +42,7 @@ body {
 /* Navigation */
 .navbar {
     padding: 1rem 0;
+    transition: all 0.3s ease;
 }
 
 .navbar-brand.brand-text {
@@ -48,10 +55,27 @@ body {
     color: var(--primary-color) !important;
     font-weight: 500;
     padding: 0.5rem 1rem !important;
+    position: relative;
 }
 
 .nav-link:hover {
     color: #3949ab !important;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 80%;
+    left: 10%;
 }
 
 /* Hero Section */
@@ -59,73 +83,103 @@ body {
     background: linear-gradient(to right, #1A237E, #0d163e);
     padding: 60px 0;
     min-height: 65vh;
-    /* Adjust this value as needed */
     display: flex;
     align-items: center;
 }
-
 
 /* Section Titles */
 .section-title {
     color: var(--primary-color);
     font-weight: 700;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-color);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* Services */
 .services-section {
     background-color: #f8f9fa;
+    padding: 4rem 0;
 }
 
 .card {
     border-radius: 12px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    height: 100%;
 }
 
 .card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .service-icon i {
-    color: #007bff;
-    /* Match button blue */
-}
-
-.card {
-    border: none;
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 .card-title {
     color: var(--primary-color);
     font-weight: 600;
+    margin-bottom: 1rem;
 }
 
 /* Products */
 .products-section {
-    background-color: #f8f9fa;
+    background-color: #ffffff;
+    padding: 4rem 0;
 }
 
 .product-card {
     border-radius: 12px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    height: 100%;
 }
 
 .product-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .card-img-top {
     height: 180px;
     object-fit: contain;
     padding: 1rem;
+    transition: transform 0.3s ease;
 }
 
+.product-card:hover .card-img-top {
+    transform: scale(1.05);
+}
 
 /* Contact Form */
+.contact-section {
+    padding: 4rem 0;
+    background-color: #f8f9fa;
+}
+
+.form-control {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
 .form-control:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 0.25rem rgba(26, 35, 126, 0.25);
@@ -134,38 +188,212 @@ body {
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
     background-color: #151d69;
     border-color: #151d69;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
 }
 
+/* Footer */
 .footer {
     background-color: #121212;
-    /* Darker footer background */
+    color: #ffffff;
+    padding: 3rem 0 2rem;
+}
+
+.footer h5 {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.footer .form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #ffffff;
 }
 
 .footer .form-control::placeholder {
     color: #aaa;
 }
 
+.footer-links a {
+    color: #aaa;
+    display: block;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer-bottom {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
 
 /* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 95%;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-section {
+        text-align: center;
+    }
+    
+    .hero-img {
+        margin-top: 2rem;
+    }
+    
+    .navbar-collapse {
+        background-color: #fff;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+}
+
 @media (max-width: 768px) {
     .hero-section {
         padding: 40px 0;
+        min-height: auto;
     }
-
+    
     .display-4 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
-
+    
     .top-bar {
         font-size: 0.8rem;
     }
-
+    
+    .top-bar .text-end {
+        text-align: center !important;
+        margin-top: 0.5rem;
+    }
+    
     .navbar-brand.brand-text {
         font-size: 1.2rem;
     }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .card-title {
+        font-size: 1.2rem;
+    }
+    
+    .footer {
+        text-align: center;
+    }
+    
+    .footer-links {
+        margin-bottom: 1.5rem;
+    }
 }
+
+@media (max-width: 576px) {
+    .display-4 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-section {
+        padding: 30px 0;
+    }
+    
+    .btn-primary {
+        width: 100%;
+    }
+    
+    .top-bar {
+        display: none;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .card-img-top {
+        height: 150px;
+    }
+    
+    .card {
+        margin-bottom: 15px;
+    }
+}
+
+/* Add sticky navigation on scroll */
+.sticky-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 0.5rem 0;
+}
+
+/* Utility classes */
+.py-6 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Equal height cards */
+.row-equal > div[class*='col-'] {
+    display: flex;
+    flex: 1 0 auto;
+}
+
+.row-equal .card {
+    width: 100%;
+}
+
+/* Add this JavaScript to make the navbar sticky */
+/* 
+document.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 100) {
+            navbar.classList.add('sticky-nav');
+        } else {
+            navbar.classList.remove('sticky-nav');
+        }
+    });
+});
+*/

@@ -16,7 +16,7 @@
         <nav class="navbar navbar-expand navbar-light bg-white px-3">
             <div class="container-fluid">
                 <img src="/assets/images/logo/Air-TechLogo.png" alt="Logo" class="rounded-circle me-2" width="40" height="40">
-                <a class="navbar-brand" href="/">AIR<span class="brand-red">PROTECH</span></a>
+                <span class="brand-text">TECH<span class="text-danger">NOLOGY</span></span>
                 <div class="navbar-nav ms-auto">
                     <a class="nav-link" href="/">Home</a>
                     <a class="nav-link" href="#">About</a>
@@ -103,20 +103,7 @@
                                     <button type="submit" class="btn btn-primary">Log In</button>
                                 </div>
 
-                                <div class="service-highlights">
-                                    <div class="service-highlight">
-                                        <i class="fas fa-bolt"></i>
-                                        <p>Fast Service</p>
-                                    </div>
-                                    <div class="service-highlight">
-                                        <i class="fas fa-shield-alt"></i>
-                                        <p>Secure System</p>
-                                    </div>
-                                    <div class="service-highlight">
-                                        <i class="fas fa-headset"></i>
-                                        <p>24/7 Support</p>
-                                    </div>
-                                </div>
+                      
 
                                 <div class="text-center mt-4">
                                     <p>Don't have an account? <a href="/auth/register" class="toggle-link">Register now</a></p>

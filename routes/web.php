@@ -26,6 +26,34 @@ $accessMap = [
     '/api/users/data' => ['admin'],
     '/api/users/export' => ['admin'],
     
+    // Inventory Management API routes - Admin only
+    '/inventory/getAllInventory' => ['admin'],
+    '/inventory/getInventoryByProduct' => ['admin'],
+    '/inventory/getInventoryByWarehouse' => ['admin'],
+    '/inventory/getInventoryByType' => ['admin'],
+    '/inventory/getLowStockProducts' => ['admin'],
+    '/inventory/getStats' => ['admin'],
+    '/inventory/getWarehouses' => ['admin'],
+    '/inventory/getProductsWithVariants' => ['admin'],
+    '/inventory/addStock' => ['admin'],
+    '/inventory/moveStock' => ['admin'],
+    '/inventory/viewProduct' => ['admin'],
+    '/inventory/exportInventory' => ['admin'],
+    '/inventory/importInventory' => ['admin'],
+    '/inventory/createProduct' => ['admin'],
+    '/inventory/updateProduct' => ['admin'],
+    '/inventory/deleteProduct' => ['admin'],
+    
+    // Warehouse Management API routes - Admin only
+    '/warehouse/getAllWarehouses' => ['admin'],
+    '/warehouse/getWarehouse' => ['admin'],
+    '/warehouse/createWarehouse' => ['admin'],
+    '/warehouse/updateWarehouse' => ['admin'],
+    '/warehouse/deleteWarehouse' => ['admin'],
+    '/warehouse/getWarehouseInventory' => ['admin'],
+    '/warehouse/getWarehousesWithSummary' => ['admin'],
+    '/warehouse/getWarehousesWithLowStock' => ['admin'],
+    
     // User routes
     '/user/dashboard' => ['customer'],
 ];
@@ -73,5 +101,33 @@ $router->map('POST', '/api/users/reset-password/[i:id]', 'App\Controllers\UserMa
 $router->map('GET', '/api/users/export', 'App\Controllers\UserManagementController#exportUsers', 'api_export_users');
 $router->map('POST', '/api/users/bulk-action', 'App\Controllers\UserManagementController#bulkAction', 'api_bulk_action');
 
+// Inventory Management API Routes
+$router->map('GET', '/inventory/getAllInventory', 'App\Controllers\InventoryController#getAllInventory', 'inventory_get_all');
+$router->map('GET', '/inventory/getInventoryByProduct/[i:productId]', 'App\Controllers\InventoryController#getInventoryByProduct', 'inventory_by_product');
+$router->map('GET', '/inventory/getInventoryByWarehouse/[i:warehouseId]', 'App\Controllers\InventoryController#getInventoryByWarehouse', 'inventory_by_warehouse');
+$router->map('GET', '/inventory/getInventoryByType/[*:type]', 'App\Controllers\InventoryController#getInventoryByType', 'inventory_by_type');
+$router->map('GET', '/inventory/getLowStockProducts', 'App\Controllers\InventoryController#getLowStockProducts', 'inventory_low_stock');
+$router->map('GET', '/inventory/getStats', 'App\Controllers\InventoryController#getStats', 'inventory_stats');
+$router->map('GET', '/inventory/getWarehouses', 'App\Controllers\InventoryController#getWarehouses', 'inventory_warehouses');
+$router->map('GET', '/inventory/getProductsWithVariants', 'App\Controllers\InventoryController#getProductsWithVariants', 'inventory_products_variants');
+$router->map('POST', '/inventory/addStock', 'App\Controllers\InventoryController#addStock', 'inventory_add_stock');
+$router->map('POST', '/inventory/moveStock', 'App\Controllers\InventoryController#moveStock', 'inventory_move_stock');
+$router->map('GET', '/inventory/viewProduct/[i:productId]', 'App\Controllers\InventoryController#viewProduct', 'inventory_view_product');
+$router->map('GET', '/inventory/exportInventory', 'App\Controllers\InventoryController#exportInventory', 'inventory_export');
+$router->map('POST', '/inventory/importInventory', 'App\Controllers\InventoryController#importInventory', 'inventory_import');
+$router->map('POST', '/inventory/createProduct', 'App\Controllers\InventoryController#createProduct', 'inventory_create_product');
+$router->map('PUT', '/inventory/updateProduct/[i:productId]', 'App\Controllers\InventoryController#updateProduct', 'inventory_update_product');
+$router->map('POST', '/inventory/deleteProduct/[i:productId]', 'App\Controllers\InventoryController#deleteProduct', 'inventory_delete_product');
+
+// Warehouse Management API Routes
+$router->map('GET', '/warehouse/getAllWarehouses', 'App\Controllers\WarehouseController#getAllWarehouses', 'warehouse_get_all');
+$router->map('GET', '/warehouse/getWarehouse/[i:warehouseId]', 'App\Controllers\WarehouseController#getWarehouse', 'warehouse_get_by_id');
+$router->map('POST', '/warehouse/createWarehouse', 'App\Controllers\WarehouseController#createWarehouse', 'warehouse_create');
+$router->map('PUT', '/warehouse/updateWarehouse/[i:warehouseId]', 'App\Controllers\WarehouseController#updateWarehouse', 'warehouse_update');
+$router->map('POST', '/warehouse/deleteWarehouse/[i:warehouseId]', 'App\Controllers\WarehouseController#deleteWarehouse', 'warehouse_delete');
+$router->map('GET', '/warehouse/getWarehouseInventory/[i:warehouseId]', 'App\Controllers\WarehouseController#getWarehouseInventory', 'warehouse_inventory');
+$router->map('GET', '/warehouse/getWarehousesWithSummary', 'App\Controllers\WarehouseController#getWarehousesWithSummary', 'warehouse_summary');
+$router->map('GET', '/warehouse/getWarehousesWithLowStock', 'App\Controllers\WarehouseController#getWarehousesWithLowStock', 'warehouse_low_stock');
+
 // Test routes
-$router->map('GET', '/test', 'App\Controllers\TestController#renderTest', 'test');
+$router->map('GET', '/test', 'App\Controllers\HomeController#renderTest', 'test');

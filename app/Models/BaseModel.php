@@ -59,6 +59,20 @@ class BaseModel
         $result = $this->limit(1)->get();
         return $result[0] ?? null;
     }
+    
+    /**
+     * Find a record by primary key or throw exception
+     */
+    public function findOrFail($id)
+    {
+        $result = $this->find($id);
+        
+        if (!$result) {
+            throw new \Exception("Record not found with ID: $id");
+        }
+        
+        return $result;
+    }
 
     /**
      * Get the first record from the query
@@ -84,9 +98,19 @@ class BaseModel
             $data[$this->updatedAtColumn] = $now;
         }
 
+        // Remove null values if not explicitly set
+        $data = array_filter($data, function($value) {
+            return $value !== null;
+        });
+
+        if (empty($data)) {
+            throw new \Exception("No valid data provided for insert");
+        }
+
         $columns = implode(',', array_keys($data));
         $placeholders = ':' . implode(', :', array_keys($data));
         $sql = "INSERT INTO {$this->table} ($columns) VALUES ($placeholders)";
+        
         return $this->execute($sql, $data);
     }
 
@@ -103,8 +127,18 @@ class BaseModel
             $data[$this->updatedAtColumn] = date('Y-m-d H:i:s');
         }
 
+        // Remove null values if not explicitly set
+        $data = array_filter($data, function($value) {
+            return $value !== null;
+        });
+
+        if (empty($data)) {
+            throw new \Exception("No valid data provided for update");
+        }
+
         $set = implode(', ', array_map(fn($k) => "$k = :$k", array_keys($data)));
         $sql = "UPDATE {$this->table} SET $set WHERE $where";
+        
         return $this->execute($sql, array_merge($data, $whereParams));
     }
 
@@ -118,6 +152,7 @@ class BaseModel
         } else {
             $sql = "DELETE FROM {$this->table} WHERE $where";
         }
+        
         return $this->execute($sql, $params);
     }
 
@@ -129,6 +164,7 @@ class BaseModel
         if (!$this->useSoftDeletes) return false;
         
         $sql = "UPDATE {$this->table} SET {$this->deletedAtColumn} = NULL WHERE $where";
+        
         return $this->execute($sql, $params);
     }
 
@@ -138,6 +174,60 @@ class BaseModel
     public function truncate()
     {
         return $this->db->exec("TRUNCATE TABLE {$this->table}");
+    }
+    
+    /**
+     * Begin a transaction
+     */
+    public function beginTransaction()
+    {
+        return $this->db->beginTransaction();
+    }
+    
+    /**
+     * Commit a transaction
+     */
+    public function commit()
+    {
+        return $this->db->commit();
+    }
+    
+    /**
+     * Rollback a transaction
+     */
+    public function rollback()
+    {
+        return $this->db->rollBack();
+    }
+    
+    /**
+     * Check if a transaction is active
+     */
+    public function inTransaction()
+    {
+        return $this->db->inTransaction();
+    }
+    
+    /**
+     * Execute a callback within a transaction
+     * 
+     * @param callable $callback Function to execute within transaction
+     * @return mixed Result of the callback
+     * @throws \Exception Rethrows exceptions after rollback
+     */
+    public function transaction(callable $callback)
+    {
+        try {
+            $this->beginTransaction();
+            $result = $callback($this);
+            $this->commit();
+            return $result;
+        } catch (\Exception $e) {
+            if ($this->inTransaction()) {
+                $this->rollback();
+            }
+            throw $e;
+        }
     }
 
     // -----------------------------------------
@@ -742,11 +832,19 @@ class BaseModel
      */
     protected function rawQuery($query, $params = [])
     {
-        $stmt = $this->db->prepare($query);
-        $stmt->execute($params);
-        $result = $stmt->fetchAll();
-        $this->reset(); // Reset after fetching
-        return $result;
+        try {
+            $stmt = $this->db->prepare($query);
+            $stmt->execute($params);
+            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $this->reset(); // Reset after fetching
+            return $result;
+        } catch (\PDOException $e) {
+            // Log the error with query and parameters for debugging
+            error_log("Database query error: " . $e->getMessage());
+            error_log("Query: $query");
+            error_log("Parameters: " . json_encode($params));
+            throw $e; // Rethrow for handling at higher levels
+        }
     }
 
     /**
@@ -754,10 +852,18 @@ class BaseModel
      */
     protected function execute($query, $params = [])
     {
-        $stmt = $this->db->prepare($query);
-        $result = $stmt->execute($params);
-        $this->reset(); // Reset after execution
-        return $result;
+        try {
+            $stmt = $this->db->prepare($query);
+            $result = $stmt->execute($params);
+            $this->reset(); // Reset after execution
+            return $result;
+        } catch (\PDOException $e) {
+            // Log the error with query and parameters for debugging
+            error_log("Database execution error: " . $e->getMessage());
+            error_log("Query: $query");
+            error_log("Parameters: " . json_encode($params));
+            throw $e; // Rethrow for handling at higher levels
+        }
     }
 
     /**
